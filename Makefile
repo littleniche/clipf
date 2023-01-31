@@ -3,8 +3,7 @@ INSTALL_DIR=/usr/local/bin/
 
 all: build 
 
-install:
-	go build -o ${BINARY_NAME}	
+install: build
 	sudo mv ${BINARY_NAME} ${INSTALL_DIR}
 
 build:
