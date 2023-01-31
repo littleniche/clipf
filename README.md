@@ -18,5 +18,5 @@ $ clipf main.go
 ```
 
 ```
-$ clipf /etc/fstab
+$ clipf /etc/fstab main.go
 ```

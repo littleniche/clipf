@@ -8,17 +8,21 @@ import (
 	"github.com/atotto/clipboard"
 )
 
+
 const (
 	RedText    = "\033[31m"
 	NormalText = "\033[0m"
+	NewLine = "\n"
 )
+
 
 func ThrowError(err error) {
 	fmt.Printf("%v[ERROR]%v : %v\n", RedText, NormalText, err.Error())
 	os.Exit(1)
 }
 
-func Copy(file string) {
+
+func Copy(file string)string {
 
 	var content string
 
@@ -34,21 +38,33 @@ func Copy(file string) {
 	for fileScanner.Scan() {
 		line := fileScanner.Text()
 
-		content += line + "\n"
+		content += ( line + NewLine )
+	}
+
+	return content
+}
+
+
+func ReadAll(argLength int, Args []string){
+
+	var content string;
+
+	for i:=1 ; i<=argLength; i++ {
+		content += Copy(Args[i]) + NewLine
 	}
 
 	clipboard.WriteAll(content)
 }
 
+
 func main() {
 	argLength := len(os.Args[1:])
 
 	if argLength < 1 {
-		fmt.Printf("gclip : %vEnter name of the file to be copied to clipboard%v\n", RedText, NormalText)
+		fmt.Printf("gclip : %varguments%v\n", RedText, NormalText)
 		os.Exit(1)
 	}
 
-	filename := os.Args[1]
-	Copy(filename)
+	ReadAll(argLength, os.Args)
 
 }
