@@ -51,6 +51,7 @@ func ReadAll(argLength int, Args []string){
 
 	for i:=1 ; i<=argLength; i++ {
 		content += Copy(Args[i]) + NewLine
+		fmt.Printf("gclear: ✅ Copied %v to Clipboard\n", Args[i]);
 	}
 
 	clipboard.WriteAll(content)
