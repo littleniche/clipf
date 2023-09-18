@@ -20,7 +20,7 @@ copy from multiple files
 ```
 $ clipf /etc/fstab main.go
 ```
-write clipboard contents to clipboard
+write clipboard contents to files
 ```
 $ clipf -w server.go main.go
 ```

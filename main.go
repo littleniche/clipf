@@ -96,7 +96,7 @@ func main() {
 	argLength := len(os.Args[1:])
 
 	if argLength < 1 {
-		fmt.Printf("gclip : %vNot enough arguments%v\n", RedText, NormalText)
+		fmt.Printf("clipf : %vNot enough arguments%v\n", RedText, NormalText)
 		os.Exit(1)
 	}
 
