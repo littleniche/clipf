@@ -54,7 +54,12 @@ func ReadAll(argLength int, Args []string) {
 			ThrowError(err)
 		}
 
-		text += (content + NewLine)
+		if i != argLength {
+			text += (content + NewLine)
+		} else {
+			text += content
+		}
+
 		verbose += "clipf: ✅ Copied " + Args[i] + " to Clipboard\n"
 
 	}
