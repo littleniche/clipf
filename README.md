@@ -16,11 +16,11 @@ $ make install
 ```
 $ clipf main.go
 ```
+copy from multiple files
+```
+$ clipf /etc/fstab main.go
+```
 write clipboard contents to clipboard
 ```
 $ clipf -w server.go main.go
-```
-
-```
-$ clipf /etc/fstab main.go
 ```
