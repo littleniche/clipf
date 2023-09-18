@@ -4,7 +4,7 @@
 
 ### Go
 ```
-$ go install github.com/littleniche/clipf@main
+$ go install github.com/littleniche/clipf@latest
 ```
 ### Manual
 ```
