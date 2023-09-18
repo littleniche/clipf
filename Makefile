@@ -13,5 +13,5 @@ clean:
 	go clean
 	rm -f ${BINARY_NAME}
 
-format:
-	go fmt *.go
+fmt:
+	go fmt .

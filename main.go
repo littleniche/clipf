@@ -54,7 +54,7 @@ func ReadAll(argLength int, Args []string) {
 		}
 
 		text += (content + NewLine)
-		verbose += "gclear: ✅ Copied " + Args[i] + " to Clipboard\n"
+		verbose += "clipf: ✅ Copied " + Args[i] + " to Clipboard\n"
 
 	}
 
