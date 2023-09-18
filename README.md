@@ -16,6 +16,10 @@ $ make install
 ```
 $ clipf main.go
 ```
+write clipboard contents to clipboard
+```
+$ clipf -w server.go main.go
+```
 
 ```
 $ clipf /etc/fstab main.go
