@@ -72,21 +72,19 @@ func ReadAll(argLength int, Args []string) {
 func WriteAll(argLength int, Args []string) {
 	text, err := clipboard.ReadAll()
 	if err != nil {
-		fmt.Println("Unable to read clipboard contents")
+		ThrowError(err)
 	}
 
 	for i := 2; i <= argLength; i++ {
 		file, err := os.Create(Args[i])
 		if err != nil {
-			fmt.Println("Failed to create file:", err)
-			continue
+			ThrowError(err)
 		}
 		defer file.Close()
 
 		_, err = file.WriteString(text)
 		if err != nil {
-			fmt.Println("Failed to write to file:", err)
-			continue
+			ThrowError(err)
 		}
 	}
 }
@@ -97,16 +95,15 @@ func main() {
 
 	argLength := len(os.Args[1:])
 
-	if *write {
-		WriteAll(argLength, os.Args)
-		return
-	}
-
 	if argLength < 1 {
 		fmt.Printf("gclip : %vNot enough arguments%v\n", RedText, NormalText)
 		os.Exit(1)
 	}
 
-	ReadAll(argLength, os.Args)
+	if *write {
+		WriteAll(argLength, os.Args)
+		return
+	}
 
+	ReadAll(argLength, os.Args)
 }
