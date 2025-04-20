@@ -20,6 +20,21 @@ func ThrowError(err error) {
 	os.Exit(1)
 }
 
+func GetFileContent(readFile *os.File) (string) {
+	var content string;
+
+	fileScanner := bufio.NewScanner(readFile)
+	fileScanner.Split(bufio.ScanLines)
+
+	for fileScanner.Scan() {
+		line := fileScanner.Text()
+
+		content += (line + NewLine)
+	}
+
+	return content;
+}
+
 func Copy(file string) (string, error) {
 
 	var content string
@@ -30,14 +45,7 @@ func Copy(file string) (string, error) {
 		return "", err
 	}
 
-	fileScanner := bufio.NewScanner(readFile)
-	fileScanner.Split(bufio.ScanLines)
-
-	for fileScanner.Scan() {
-		line := fileScanner.Text()
-
-		content += (line + NewLine)
-	}
+	content = GetFileContent (readFile);
 
 	return content, nil
 }
