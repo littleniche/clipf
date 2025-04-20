@@ -20,6 +20,10 @@ copy from multiple files
 ```
 $ clipf /etc/fstab main.go
 ```
+copy from stdin
+```
+$ cat Makefile | clipf
+```
 write clipboard contents to files
 ```
 $ clipf -w server.go main.go

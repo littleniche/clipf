@@ -20,8 +20,8 @@ func ThrowError(err error) {
 	os.Exit(1)
 }
 
-func GetFileContent(readFile *os.File) (string) {
-	var content string;
+func GetFileContent(readFile *os.File) string {
+	var content string
 
 	fileScanner := bufio.NewScanner(readFile)
 	fileScanner.Split(bufio.ScanLines)
@@ -32,7 +32,7 @@ func GetFileContent(readFile *os.File) (string) {
 		content += (line + NewLine)
 	}
 
-	return content;
+	return content
 }
 
 func Copy(file string) (string, error) {
@@ -45,7 +45,7 @@ func Copy(file string) (string, error) {
 		return "", err
 	}
 
-	content = GetFileContent (readFile);
+	content = GetFileContent(readFile)
 
 	return content, nil
 }
@@ -77,6 +77,25 @@ func ReadAll(argLength int, Args []string) {
 	clipboard.WriteAll(text)
 }
 
+func ReadStdin() {
+	var content string
+
+	content = GetFileContent(os.Stdin)
+
+	clipboard.WriteAll(content)
+}
+
+func IsStdin() bool {
+	stat, _ := os.Stdin.Stat()
+
+	// We only treat piped input as stdin
+	if (stat.Mode() & os.ModeCharDevice) == 0 {
+		return true
+	}
+
+	return false
+}
+
 func WriteAll(argLength int, Args []string) {
 	text, err := clipboard.ReadAll()
 	if err != nil {
@@ -98,12 +117,14 @@ func WriteAll(argLength int, Args []string) {
 }
 
 func main() {
+	var stdin bool
 	write := flag.Bool("w", false, "Write content of clipboard to files")
 	flag.Parse()
 
 	argLength := len(os.Args[1:])
+	stdin = IsStdin()
 
-	if argLength < 1 {
+	if argLength < 1 && !stdin {
 		fmt.Printf("clipf : %vNot enough arguments%v\n", RedText, NormalText)
 		os.Exit(1)
 	}
@@ -114,4 +135,8 @@ func main() {
 	}
 
 	ReadAll(argLength, os.Args)
+	if argLength < 1 && stdin {
+		ReadStdin()
+		fmt.Printf("clipf: ✅ Copied stdin to Clipboard\n")
+	}
 }
